@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Apartment</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 200px;
+      height: 100%;
+      background: url('tile.jpg') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 20px 0;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 12px 20px;
+      width: 80%;
+      text-align: center;
+      margin: 10px 0;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .content {
+      margin-left: 220px;
+      padding: 50px;
+      text-align: center;
+    }
+
+    .qr {
+      margin-top: 40px;
+    }
+
+    .link {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+
+    .link a {
+      color: #007BFF;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .link a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sidebar">
+    <a href="apartment.html">The Apartment</a>
+    <a href="eating.html">Eating Out</a>
+    <a href="phrases.html">Useful Phrases</a>
+  </div>
+
+  <div class="content">
+    <h1>📍 The Apartment Location</h1>
+    <p>Scan the QR code below to get the exact location of the apartment.</p>
+    <div class="qr">
+      <img src="image.png" alt="QR Code" width="200">
+    </div>
+    <div class="link">
+      Or <a href="https://www.google.com/maps/place/Gar%C3%A7a+Real/@37.0236156,-7.8484058,896m/data=!3m1!1e3!4m6!3m5!1s0xd0555cb74a4052b:0x120caa4dc4d54275!8m2!3d37.0236493!4d-7.8497702!16s%2Fg%2F11g0m5hbjq?entry=ttu&g_ep=EgoyMDI1MDQwMi4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D" target="_blank">Click Here</a>
+    </div>
+  </div>
+
+</body>
+</html>
