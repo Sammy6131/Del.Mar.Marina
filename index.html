@@ -4,120 +4,65 @@
   <meta charset="UTF-8" />
   <title>Enter Password</title>
   <style>
-    * {
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body, html {
-      height: 100%;
-      overflow: hidden;
+      background-color: #000;
+      color: #fff;
       font-family: 'Segoe UI', sans-serif;
-    }
-
-    /* Fullscreen background video */
-    #bg-video {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      object-fit: cover;
-      z-index: -1;
-      filter: brightness(0.4);
-    }
-
-    .container {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1;
     }
 
-    .box {
-      background-color: rgba(0, 0, 0, 0.7);
+    .container {
+      background-color: #111;
       padding: 40px;
       border-radius: 12px;
       text-align: center;
-      color: #fff;
-      animation: fadeIn 2s ease;
     }
 
-    input[type="password"] {
-      padding: 12px;
-      width: 220px;
-      border: none;
-      border-radius: 8px;
-      outline: none;
+    input {
+      padding: 10px;
       font-size: 16px;
-      text-align: center;
-      margin-top: 10px;
     }
 
     button {
-      margin-top: 20px;
-      padding: 10px 24px;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(45deg, #444, #777);
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
+      margin-top: 10px;
+      padding: 10px 20px;
     }
 
     .error {
-      color: #ff4f4f;
+      color: red;
       margin-top: 10px;
-      display: none;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-
-  <!-- Background video -->
-  <video autoplay muted loop id="bg-video">
-  <source src="portugal-flag.mp4" type="video/mp4">
-  Your browser does not support HTML5 video.
-</video>
-
-
   <div class="container">
-    <div class="box">
-      <h2>🔒 Enter Password</h2>
-      <input type="password" id="password" placeholder="Password" />
-      <br />
-      <button onclick="checkPassword()">Submit</button>
-      <div class="error" id="error">Incorrect password. Try again.</div>
-    </div>
+    <h2>Enter Password</h2>
+    <input type="password" id="password" placeholder="Password" />
+    <br>
+    <button onclick="submitPassword()">Submit</button>
+    <div class="error" id="error"></div>
   </div>
 
   <script>
-    function checkPassword() {
-      const pass = document.getElementById("password").value;
-      const error = document.getElementById("error");
-
-      if (pass === "Hola") {
-        document.body.style.transition = "opacity 1s ease";
-        document.body.style.opacity = 0;
-        setTimeout(() => {
+    function submitPassword() {
+      const password = document.getElementById("password").value;
+      fetch("/.netlify/functions/verify", {
+        method: "POST",
+        body: JSON.stringify({ password }),
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.success) {
           window.location.href = "welcome.html";
-        }, 1000);
-      } else {
-        error.style.display = "block";
-      }
+        } else {
+          document.getElementById("error").textContent = "Incorrect password.";
+        }
+      });
     }
-
-    document.getElementById("password").addEventListener("keypress", function (e) {
-      if (e.key === "Enter") checkPassword();
-    });
   </script>
 </body>
 </html>
-
