@@ -4,32 +4,45 @@
   <meta charset="UTF-8" />
   <title>Enter Password</title>
   <style>
-    body {
+    * {
       margin: 0;
-      background-color: #000;
-      color: #fff;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      overflow: hidden;
       font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Fullscreen background video */
+    #bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(0.4);
+    }
+
+    .container {
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
+      z-index: 1;
     }
 
-    .container {
-      background: rgba(255, 255, 255, 0.05);
-      padding: 50px 40px;
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+    .box {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 40px;
+      border-radius: 12px;
       text-align: center;
-      backdrop-filter: blur(8px);
-      animation: fadeIn 1.5s ease;
-    }
-
-    h2 {
-      margin-bottom: 20px;
-      font-size: 24px;
-      letter-spacing: 1px;
+      color: #fff;
+      animation: fadeIn 2s ease;
     }
 
     input[type="password"] {
@@ -40,14 +53,7 @@
       outline: none;
       font-size: 16px;
       text-align: center;
-      background-color: #222;
-      color: #fff;
-      transition: all 0.3s ease;
-    }
-
-    input[type="password"]:focus {
-      background-color: #333;
-      box-shadow: 0 0 10px #fff2;
+      margin-top: 10px;
     }
 
     button {
@@ -59,19 +65,12 @@
       color: white;
       font-size: 16px;
       cursor: pointer;
-      transition: 0.3s ease;
-    }
-
-    button:hover {
-      background: linear-gradient(45deg, #555, #999);
     }
 
     .error {
-      margin-top: 15px;
       color: #ff4f4f;
-      font-size: 14px;
-      opacity: 0;
-      animation: fadeIn 0.5s forwards;
+      margin-top: 10px;
+      display: none;
     }
 
     @keyframes fadeIn {
@@ -81,37 +80,43 @@
   </style>
 </head>
 <body>
+
+  <!-- Background video -->
+  <video autoplay muted loop id="bg-video">
+    <source src="https://cdn.coverr.co/videos/coverr-waving-flag-8799/1080p.mp4" type="video/mp4">
+    Your browser does not support HTML5 video.
+  </video>
+
   <div class="container">
-    <h2>🔒 Enter Password to Continue</h2>
-    <input type="password" id="password" placeholder="Password" />
-    <br />
-    <button onclick="checkPassword()">Submit</button>
-    <div id="error" class="error" style="display: none;"></div>
+    <div class="box">
+      <h2>🔒 Enter Password</h2>
+      <input type="password" id="password" placeholder="Password" />
+      <br />
+      <button onclick="checkPassword()">Submit</button>
+      <div class="error" id="error">Incorrect password. Try again.</div>
+    </div>
   </div>
 
   <script>
     function checkPassword() {
-      const passInput = document.getElementById("password");
-      const errorDiv = document.getElementById("error");
+      const pass = document.getElementById("password").value;
+      const error = document.getElementById("error");
 
-      if (passInput.value === "Hola") {
-        // Fancy fade out transition before redirecting
-        document.querySelector(".container").style.opacity = "0";
+      if (pass === "Hola") {
+        document.body.style.transition = "opacity 1s ease";
+        document.body.style.opacity = 0;
         setTimeout(() => {
           window.location.href = "welcome.html";
-        }, 700);
+        }, 1000);
       } else {
-        errorDiv.textContent = "❌ Incorrect password. Try again.";
-        errorDiv.style.display = "block";
+        error.style.display = "block";
       }
     }
 
-    // Optional: press Enter to submit
     document.getElementById("password").addEventListener("keypress", function (e) {
-      if (e.key === "Enter") {
-        checkPassword();
-      }
+      if (e.key === "Enter") checkPassword();
     });
   </script>
 </body>
 </html>
+
