@@ -3,8 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <title>Welcome</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 150px;
+    }
+
+    /* Hamburger button */
+    .menu-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #333;
+      z-index: 10;
+    }
+
+    /* Dropdown container */
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 60px;
+      left: 20px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 9;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 12px 20px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #eee;
+    }
+
+    .dropdown a:last-child {
+      border-bottom: none;
+    }
+
+    .dropdown a:hover {
+      background-color: #f0f0f0;
+    }
+  </style>
 </head>
-<body style="font-family: Arial; text-align: center; padding-top: 150px;">
+<body>
+
+  <!-- Hamburger menu button -->
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+  <!-- Dropdown menu -->
+  <div class="dropdown" id="dropdownMenu">
+    <a href="phrases.html">Useful Phrases</a>
+    <a href="eating.html">Eating Out</a>
+    <a href="apartment.html">The Apartment</a>
+  </div>
+
   <h1>WELCOME</h1>
+
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById('dropdownMenu');
+      menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+    }
+
+    // Optional: hide menu when clicking outside
+    document.addEventListener('click', function(e) {
+      const menu = document.getElementById('dropdownMenu');
+      const button = document.querySelector('.menu-btn');
+      if (!menu.contains(e.target) && !button.contains(e.target)) {
+        menu.style.display = 'none';
+      }
+    });
+  </script>
+
 </body>
 </html>
