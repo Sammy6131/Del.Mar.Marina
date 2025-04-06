@@ -2,74 +2,116 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Password Protected</title>
+  <title>Enter Password</title>
   <style>
     body {
       margin: 0;
       background-color: #000;
       color: #fff;
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
+      overflow: hidden;
     }
 
     .container {
-      background-color: #111;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.05);
+      padding: 50px 40px;
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
       text-align: center;
+      backdrop-filter: blur(8px);
+      animation: fadeIn 1.5s ease;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      letter-spacing: 1px;
     }
 
     input[type="password"] {
-      padding: 10px;
-      width: 200px;
+      padding: 12px;
+      width: 220px;
       border: none;
-      border-radius: 5px;
-      margin-top: 10px;
+      border-radius: 8px;
+      outline: none;
+      font-size: 16px;
+      text-align: center;
+      background-color: #222;
+      color: #fff;
+      transition: all 0.3s ease;
+    }
+
+    input[type="password"]:focus {
+      background-color: #333;
+      box-shadow: 0 0 10px #fff2;
     }
 
     button {
-      margin-top: 15px;
-      padding: 10px 20px;
+      margin-top: 20px;
+      padding: 10px 24px;
       border: none;
-      border-radius: 5px;
-      background-color: #444;
-      color: #fff;
+      border-radius: 8px;
+      background: linear-gradient(45deg, #444, #777);
+      color: white;
+      font-size: 16px;
       cursor: pointer;
+      transition: 0.3s ease;
     }
 
     button:hover {
-      background-color: #666;
+      background: linear-gradient(45deg, #555, #999);
     }
 
     .error {
-      color: red;
-      margin-top: 10px;
+      margin-top: 15px;
+      color: #ff4f4f;
+      font-size: 14px;
+      opacity: 0;
+      animation: fadeIn 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>Enter Password</h2>
+    <h2>🔒 Enter Password to Continue</h2>
     <input type="password" id="password" placeholder="Password" />
     <br />
     <button onclick="checkPassword()">Submit</button>
-    <div id="error" class="error"></div>
+    <div id="error" class="error" style="display: none;"></div>
   </div>
 
   <script>
     function checkPassword() {
-      var input = document.getElementById("password").value;
-      if (input === "Hola") {
-        window.location.href = "welcome.html";
+      const passInput = document.getElementById("password");
+      const errorDiv = document.getElementById("error");
+
+      if (passInput.value === "Hola") {
+        // Fancy fade out transition before redirecting
+        document.querySelector(".container").style.opacity = "0";
+        setTimeout(() => {
+          window.location.href = "welcome.html";
+        }, 700);
       } else {
-        document.getElementById("error").textContent = "Incorrect password.";
+        errorDiv.textContent = "❌ Incorrect password. Try again.";
+        errorDiv.style.display = "block";
       }
     }
+
+    // Optional: press Enter to submit
+    document.getElementById("password").addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        checkPassword();
+      }
+    });
   </script>
 </body>
 </html>
-
